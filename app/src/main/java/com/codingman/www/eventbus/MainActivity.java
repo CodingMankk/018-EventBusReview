@@ -27,11 +27,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 startActivity(intent);
+                //注册事件
+//                EventBus.getDefault().register(MainActivity.this);
             }
         });
 
-        //注册事件
-        EventBus.getDefault().register(this);
+
+        Button mBtnStick = (Button) findViewById(R.id.id_btn_stick);
+        mBtnStick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!EventBus.getDefault().isRegistered(MainActivity.this)) {
+                    //注册事件
+                    EventBus.getDefault().register(MainActivity.this);
+                }
+            }
+
+        });
 
 
         mTv = (TextView) findViewById(R.id.id_tv_main);
@@ -42,7 +54,15 @@ public class MainActivity extends AppCompatActivity {
      * 订阅者处理事件
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(MessageEvent messageEvent){
+    public void onMoonEvent(MessageEvent messageEvent) {
+        mTv.setText(messageEvent.getMessage());
+    }
+
+    /**
+     * 订阅粘性事件
+     */
+    @Subscribe(threadMode = ThreadMode.POSTING, sticky = true)
+    public void onMoonStickEvent(MessageEvent messageEvent) {
         mTv.setText(messageEvent.getMessage());
     }
 

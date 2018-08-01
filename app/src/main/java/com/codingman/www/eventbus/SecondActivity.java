@@ -17,10 +17,11 @@ import org.greenrobot.eventbus.EventBus;
  * 修订历史：
  * ================================================
  */
-public class SecondActivity extends Activity{
+public class SecondActivity extends Activity {
 
     private TextView mTvSecond;
     private Button mBtnSecond;
+    private Button mBtnStickEvent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class SecondActivity extends Activity{
 
         mBtnSecond = (Button) findViewById(R.id.id_btn_second);
         mTvSecond = (TextView) findViewById(R.id.id_tv_second);
+        mBtnStickEvent = (Button)findViewById(R.id.id_btn_EmitStickEvent);
 
         mBtnSecond.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,17 @@ public class SecondActivity extends Activity{
                 finish();
             }
         });
+
+
+        mBtnStickEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new MessageEvent("我是EventBus3.0 发送的粘性事件"));
+                finish();
+
+            }
+        });
+
 
     }
 }

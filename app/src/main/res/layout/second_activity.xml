@@ -22,4 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/id_btn_EmitStickEvent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:text="发送粘性消息"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
